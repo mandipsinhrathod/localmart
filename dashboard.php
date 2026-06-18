@@ -185,7 +185,10 @@ if (isset($_GET['print']) && $_GET['print'] === '1') {
 
 // 5. Handle GET notifications & POST form submissions (CRUD Actions)
 $notification = '';
-if (isset($_GET['registered'])) {
+if (isset($_SESSION['notification'])) {
+    $notification = $_SESSION['notification'];
+    unset($_SESSION['notification']);
+} elseif (isset($_GET['registered'])) {
     $notification = ['type' => 'success', 'message' => 'Store registered successfully! Welcome to your Vendor Admin Panel.'];
 }
 
@@ -217,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (empty($shop_name) || empty($owner_name) || empty($address) || empty($store_type) || empty($contact_number)) {
-            $notification = ['type' => 'error', 'message' => 'Please fill out all required profile fields.'];
+            $_SESSION['notification'] = ['type' => 'error', 'message' => 'Please fill out all required profile fields.'];
         } else {
             try {
                 // Handle Logo Upload
@@ -250,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $logo_path = $destPath;
                         }
                     } else {
-                        $notification = ['type' => 'error', 'message' => 'Invalid logo image format. Allowed formats: JPG, JPEG, PNG, WEBP, SVG.'];
+                        $_SESSION['notification'] = ['type' => 'error', 'message' => 'Invalid logo image format. Allowed formats: JPG, JPEG, PNG, WEBP, SVG.'];
                     }
                 }
 
@@ -270,9 +273,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $vendor['theme_bg'] = $theme_bg;
                 $vendor['font_style'] = $font_style;
                 
-                $notification = ['type' => 'success', 'message' => 'Shop profile and branding settings updated successfully.'];
+                $_SESSION['notification'] = ['type' => 'success', 'message' => 'Shop profile and branding settings updated successfully.'];
             } catch (PDOException $e) {
-                $notification = ['type' => 'error', 'message' => 'Profile update failed: ' . $e->getMessage()];
+                $_SESSION['notification'] = ['type' => 'error', 'message' => 'Profile update failed: ' . $e->getMessage()];
             }
         }
     }
@@ -291,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $image_path = 'assets/images/placeholder_product.svg';
 
         if (empty($name) || $price <= 0) {
-            $notification = ['type' => 'error', 'message' => 'Please enter a valid product name and positive price.'];
+            $_SESSION['notification'] = ['type' => 'error', 'message' => 'Please enter a valid product name and positive price.'];
         } else {
             // Check image upload
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -340,9 +343,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $insertStmt = $conn->prepare("INSERT INTO items (id, vendor_id, name, description, price, image_path, availability, weight_qty, product_type, shelf_life, grade, price_unit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $insertStmt->execute([$productId, $vendor_id, $name, $description, $price, $image_path, $availability, $weight_qty, $product_type, $shelf_life, $grade, $price_unit]);
-                $notification = ['type' => 'success', 'message' => 'Product listing created successfully!'];
+                $_SESSION['notification'] = ['type' => 'success', 'message' => 'Product listing created successfully!'];
             } catch (PDOException $e) {
-                $notification = ['type' => 'error', 'message' => 'Failed to add item: ' . $e->getMessage()];
+                $_SESSION['notification'] = ['type' => 'error', 'message' => 'Failed to add item: ' . $e->getMessage()];
             }
         }
     }
@@ -362,7 +365,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $price_unit = trim($_POST['price_unit'] ?? 'kg');
 
         if (empty($name) || $price <= 0 || $item_id <= 0) {
-            $notification = ['type' => 'error', 'message' => 'Please enter valid product specifications.'];
+            $_SESSION['notification'] = ['type' => 'error', 'message' => 'Please enter valid product specifications.'];
         } else {
             try {
                 // Verify owner
@@ -396,12 +399,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $updateItemStmt = $conn->prepare("UPDATE items SET name = ?, description = ?, price = ?, image_path = ?, availability = ?, weight_qty = ?, product_type = ?, shelf_life = ?, grade = ?, price_unit = ? WHERE id = ? AND vendor_id = ?");
                     $updateItemStmt->execute([$name, $description, $price, $image_path, $availability, $weight_qty, $product_type, $shelf_life, $grade, $price_unit, $item_id, $vendor_id]);
-                    $notification = ['type' => 'success', 'message' => 'Product updated successfully.'];
+                    $_SESSION['notification'] = ['type' => 'success', 'message' => 'Product updated successfully.'];
                 } else {
-                    $notification = ['type' => 'error', 'message' => 'Unauthorized action or product not found.'];
+                    $_SESSION['notification'] = ['type' => 'error', 'message' => 'Unauthorized action or product not found.'];
                 }
             } catch (PDOException $e) {
-                $notification = ['type' => 'error', 'message' => 'Failed to edit item: ' . $e->getMessage()];
+                $_SESSION['notification'] = ['type' => 'error', 'message' => 'Failed to edit item: ' . $e->getMessage()];
             }
         }
     }
@@ -426,14 +429,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $deleteStmt = $conn->prepare("DELETE FROM items WHERE id = ? AND vendor_id = ?");
                 $deleteStmt->execute([$item_id, $vendor_id]);
-                $notification = ['type' => 'success', 'message' => 'Product listing removed.'];
+                $_SESSION['notification'] = ['type' => 'success', 'message' => 'Product listing removed.'];
             } else {
-                $notification = ['type' => 'error', 'message' => 'Product not found or unauthorized.'];
+                $_SESSION['notification'] = ['type' => 'error', 'message' => 'Product not found or unauthorized.'];
             }
         } catch (PDOException $e) {
-            $notification = ['type' => 'error', 'message' => 'Failed to delete item: ' . $e->getMessage()];
+            $_SESSION['notification'] = ['type' => 'error', 'message' => 'Failed to delete item: ' . $e->getMessage()];
         }
     }
+
+    // Redirect to prevent form re-submission on refresh
+    header("Location: dashboard.php");
+    exit();
 }
 
 // 6. Fetch Catalog Items for Listing
