@@ -1,0 +1,14 @@
+.git
+.agents
+.gemini
+__pycache__
+upload_to_github.py
+upload_temp.py
+scratch
+README.md
+api_documentation.md
+deployment_guide.md
+task.md
+walkthrough.md
+*.log
+desktop.ini
