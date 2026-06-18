@@ -7,10 +7,10 @@ if (session_status() === PHP_SESSION_NONE) {
 // AUTO CREATES DATABASE & TABLES
 // ================================
 
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "localmart";
+$host = getenv('DB_HOST') ?: "localhost";
+$user = getenv('DB_USER') ?: "root";
+$pass = getenv('DB_PASS') !== false ? getenv('DB_PASS') : "";
+$dbname = getenv('DB_NAME') ?: "localmart";
 
 try {
     // Connect to MySQL Server (without dbname to create it if missing)
