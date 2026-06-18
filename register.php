@@ -64,11 +64,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Securely hash the password
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-                    // Insert vendor including logo_path
-                    $insertStmt = $conn->prepare("INSERT INTO vendors (shop_name, owner_name, email, password, shop_description, address, store_type, contact_number, qr_code_token, logo_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    $insertStmt->execute([$shop_name, $owner_name, $email, $hashedPassword, $shop_description, $address, $store_type, $contact_number, $token, $logo_path]);
-                    
-                    $vendorId = $conn->lastInsertId();
+                    // Generate a unique 8-digit store/vendor ID
+                    $vendorId = 0;
+                    do {
+                        $vendorId = rand(10000000, 99999999);
+                        $checkId = $conn->prepare("SELECT id FROM vendors WHERE id = ?");
+                        $checkId->execute([$vendorId]);
+                    } while ($checkId->fetch());
+
+                    // Insert vendor including logo_path and custom unique ID
+                    $insertStmt = $conn->prepare("INSERT INTO vendors (id, shop_name, owner_name, email, password, shop_description, address, store_type, contact_number, qr_code_token, logo_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    $insertStmt->execute([$vendorId, $shop_name, $owner_name, $email, $hashedPassword, $shop_description, $address, $store_type, $contact_number, $token, $logo_path]);
 
                     // Set session variables to log the vendor in
                     $_SESSION['vendor_id'] = $vendorId;
