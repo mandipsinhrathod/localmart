@@ -1,0 +1,13 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft slate textured background -->
+  <rect width="400" height="300" rx="12" fill="#EAEFF2"/>
+  <rect x="20" y="20" width="360" height="260" rx="8" stroke="#D1DCE2" stroke-width="2" stroke-dasharray="8 6"/>
+  <!-- Box/Package Icon -->
+  <path d="M200 80L280 120V200L200 240L120 200V120L200 80Z" fill="#B3C5CE"/>
+  <path d="M200 80V240" stroke="#FAF7F2" stroke-width="3"/>
+  <path d="M120 120L200 160L280 120" stroke="#FAF7F2" stroke-width="3"/>
+  <path d="M200 160V240" stroke="#FAF7F2" stroke-width="3"/>
+  <path d="M160 100L240 140" stroke="#FAF7F2" stroke-width="3" stroke-linecap="round"/>
+  <!-- Text -->
+  <text x="200" y="265" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="14" font-weight="600" fill="#78909C">No Image Available</text>
+</svg>
