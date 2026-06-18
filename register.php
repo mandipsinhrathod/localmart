@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     } while ($checkId->fetch());
 
                     // Insert vendor including logo_path and custom unique ID
-                    $insertStmt = $conn->prepare("INSERT INTO vendors (id, shop_name, owner_name, email, password, shop_description, address, store_type, contact_number, qr_code_token, logo_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    $insertStmt = $conn->prepare("INSERT INTO vendors (id, shop_name, owner_name, email, password, shop_description, address, store_type, contact_number, qr_code_token, logo_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     $insertStmt->execute([$vendorId, $shop_name, $owner_name, $email, $hashedPassword, $shop_description, $address, $store_type, $contact_number, $token, $logo_path]);
 
                     // Set session variables to log the vendor in
