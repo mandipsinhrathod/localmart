@@ -79,6 +79,21 @@ try {
     $conn->exec($customersTable);
 
     // =================================
+    // CREATE MOBILE USERS TABLE
+    // =================================
+    $usersTable = "
+    CREATE TABLE IF NOT EXISTS users (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        phone VARCHAR(20) NOT NULL UNIQUE,
+        email VARCHAR(100) DEFAULT NULL,
+        password VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    ";
+    $conn->exec($usersTable);
+
+    // =================================
     // UPDATE VENDORS TABLE WITH BRANDING COLUMNS
     // =================================
     $columnsToAdd = [
