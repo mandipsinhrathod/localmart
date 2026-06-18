@@ -1,0 +1,14 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" rx="12" fill="#FDF3F3"/>
+  <circle cx="200" cy="150" r="100" fill="#FCE5E5"/>
+  <!-- Tomato 1 (Main Red) -->
+  <circle cx="185" cy="160" r="45" fill="#E53935"/>
+  <ellipse cx="195" cy="148" rx="8" ry="4" fill="#FF8A80" transform="rotate(-15 195 148)" opacity="0.6"/>
+  <!-- Tomato 2 (Background Red) -->
+  <circle cx="225" cy="140" r="38" fill="#D32F2F"/>
+  <!-- Stems -->
+  <path d="M185 115 L180 110 M185 115 L192 112 M185 115 L182 122 M185 115 L176 117 M185 115 C185 110 195 105 198 102" stroke="#2E7D32" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M225 102 L222 98 M225 102 L231 100 M225 102 L220 106 M225 102 C225 98 232 94 235 90" stroke="#1B5E20" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <!-- Text -->
+  <text x="200" y="270" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="14" font-weight="600" fill="#C62828">Heirloom Tomatoes</text>
+</svg>
