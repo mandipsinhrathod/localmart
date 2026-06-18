@@ -1,0 +1,14 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" rx="12" fill="#FFFBF2"/>
+  <circle cx="200" cy="150" r="100" fill="#FFF3E0"/>
+  <!-- Croissant shape -->
+  <path d="M120 180 C110 140 140 100 200 100 C260 100 290 140 280 180 C270 180 250 150 200 150 C150 150 130 180 120 180 Z" fill="#FFE082" transform="rotate(-10 200 140)"/>
+  <!-- Layers -->
+  <path d="M200 100 C205 115 205 135 200 150" stroke="#B89047" stroke-width="4" stroke-linecap="round" fill="none" transform="rotate(-10 200 140)"/>
+  <path d="M170 105 C178 120 182 135 178 148" stroke="#B89047" stroke-width="4" stroke-linecap="round" fill="none" transform="rotate(-10 200 140)"/>
+  <path d="M230 105 C222 120 218 135 222 148" stroke="#B89047" stroke-width="4" stroke-linecap="round" fill="none" transform="rotate(-10 200 140)"/>
+  <path d="M145 120 C155 130 162 145 160 155" stroke="#B89047" stroke-width="3" stroke-linecap="round" fill="none" transform="rotate(-10 200 140)"/>
+  <path d="M255 120 C245 130 238 145 240 155" stroke="#B89047" stroke-width="3" stroke-linecap="round" fill="none" transform="rotate(-10 200 140)"/>
+  <!-- Text -->
+  <text x="200" y="270" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="14" font-weight="600" fill="#B89047">Butter Croissant</text>
+</svg>
