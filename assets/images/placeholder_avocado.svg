@@ -1,0 +1,14 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" rx="12" fill="#F0F5ED"/>
+  <!-- Leaves / Background elements -->
+  <circle cx="200" cy="150" r="100" fill="#E2EDDC"/>
+  <!-- Avocado Body -->
+  <path d="M200 75 C160 75 145 130 145 165 C145 205 170 230 200 230 C230 230 255 205 255 165 C255 130 240 75 200 75 Z" fill="#6A9A44"/>
+  <!-- Light Green Flesh -->
+  <path d="M200 87 C168 87 155 133 155 165 C155 197 175 218 200 218 C225 218 245 197 245 165 C245 133 232 87 200 87 Z" fill="#C5E1A5"/>
+  <!-- Seed -->
+  <circle cx="200" cy="175" r="30" fill="#8D6E63"/>
+  <circle cx="190" cy="165" r="8" fill="#A1887F" opacity="0.6"/>
+  <!-- Text -->
+  <text x="200" y="270" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="14" font-weight="600" fill="#558B2F">Fresh Avocado</text>
+</svg>
