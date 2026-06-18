@@ -53,8 +53,10 @@ try {
         $dummyPassword = password_hash('password123', PASSWORD_DEFAULT);
         
         // Vendor 1: Organic Greens
-        $stmt1 = $conn->prepare("INSERT INTO `vendors` (shop_name, owner_name, email, password, shop_description, address, store_type, contact_number, qr_code_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $vendor1Id = 58291048;
+        $stmt1 = $conn->prepare("INSERT INTO `vendors` (id, shop_name, owner_name, email, password, shop_description, address, store_type, contact_number, qr_code_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt1->execute([
+            $vendor1Id,
             'Organic Greens & Co.', 
             'John Greens',
             'greens@localmart.com', 
@@ -65,11 +67,12 @@ try {
             '+1 (555) 123-4567',
             'token_greens'
         ]);
-        $vendor1Id = $conn->lastInsertId();
 
         // Vendor 2: The Artisan Bakery
-        $stmt2 = $conn->prepare("INSERT INTO `vendors` (shop_name, owner_name, email, password, shop_description, address, store_type, contact_number, qr_code_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $vendor2Id = 94820153;
+        $stmt2 = $conn->prepare("INSERT INTO `vendors` (id, shop_name, owner_name, email, password, shop_description, address, store_type, contact_number, qr_code_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt2->execute([
+            $vendor2Id,
             'The Artisan Bakery', 
             'Sarah Baker',
             'bakery@localmart.com', 
@@ -80,18 +83,17 @@ try {
             '+1 (555) 987-6543',
             'token_bakery'
         ]);
-        $vendor2Id = $conn->lastInsertId();
 
-        // Insert items for Vendor 1 (Greens)
-        $itemStmt = $conn->prepare("INSERT INTO `items` (vendor_id, name, description, price, image_path) VALUES (?, ?, ?, ?, ?)");
-        $itemStmt->execute([$vendor1Id, 'Organic Avocado Box', 'A carton containing 4 ripe, creamy organic Hass avocados.', 8.50, 'assets/images/placeholder_avocado.svg']);
-        $itemStmt->execute([$vendor1Id, 'Fresh Heirloom Tomatoes', '1kg basket of colorful and juicy heirloom tomatoes perfect for salads.', 4.90, 'assets/images/placeholder_tomatoes.svg']);
-        $itemStmt->execute([$vendor1Id, 'Baby Spinach Leaves', '250g pack of pre-washed, crunchy, ready-to-eat baby spinach leaves.', 3.20, 'assets/images/placeholder_spinach.svg']);
+        // Insert items for Vendor 1 (Greens) with explicit 8-digit IDs
+        $itemStmt = $conn->prepare("INSERT INTO `items` (id, vendor_id, name, description, price, image_path) VALUES (?, ?, ?, ?, ?, ?)");
+        $itemStmt->execute([20394812, $vendor1Id, 'Organic Avocado Box', 'A carton containing 4 ripe, creamy organic Hass avocados.', 8.50, 'assets/images/placeholder_avocado.svg']);
+        $itemStmt->execute([58294028, $vendor1Id, 'Fresh Heirloom Tomatoes', '1kg basket of colorful and juicy heirloom tomatoes perfect for salads.', 4.90, 'assets/images/placeholder_tomatoes.svg']);
+        $itemStmt->execute([91823049, $vendor1Id, 'Baby Spinach Leaves', '250g pack of pre-washed, crunchy, ready-to-eat baby spinach leaves.', 3.20, 'assets/images/placeholder_spinach.svg']);
 
-        // Insert items for Vendor 2 (Bakery)
-        $itemStmt->execute([$vendor2Id, 'Signature Sourdough', 'Our classic crusty sourdough bread loaf made with wild yeast starter.', 6.00, 'assets/images/placeholder_sourdough.svg']);
-        $itemStmt->execute([$vendor2Id, 'French Butter Croissant', 'Flaky, golden, and layered with rich Normandy butter.', 3.50, 'assets/images/placeholder_croissant.svg']);
-        $itemStmt->execute([$vendor2Id, 'Blueberry Almond Tart', 'Sweet pastry crust filled with almond frangipane and fresh blueberries.', 5.50, 'assets/images/placeholder_tart.svg']);
+        // Insert items for Vendor 2 (Bakery) with explicit 8-digit IDs
+        $itemStmt->execute([10293847, $vendor2Id, 'Signature Sourdough', 'Our classic crusty sourdough bread loaf made with wild yeast starter.', 6.00, 'assets/images/placeholder_sourdough.svg']);
+        $itemStmt->execute([58204918, $vendor2Id, 'French Butter Croissant', 'Flaky, golden, and layered with rich Normandy butter.', 3.50, 'assets/images/placeholder_croissant.svg']);
+        $itemStmt->execute([38472910, $vendor2Id, 'Blueberry Almond Tart', 'Sweet pastry crust filled with almond frangipane and fresh blueberries.', 5.50, 'assets/images/placeholder_tart.svg']);
 
         // Insert dummy customers (Passwords are 'custpassword123')
         $dummyCustPassword = password_hash('custpassword123', PASSWORD_DEFAULT);
