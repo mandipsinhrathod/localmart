@@ -1,0 +1,13 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" rx="12" fill="#FDFBF7"/>
+  <circle cx="200" cy="150" r="100" fill="#F5EFE6"/>
+  <!-- Bread Loaf -->
+  <path d="M120 160 C120 120 150 100 200 100 C250 100 280 120 280 160 C280 190 250 200 200 200 C150 200 120 190 120 160 Z" fill="#D7CCC8"/>
+  <path d="M125 155 C125 125 152 108 200 108 C248 108 275 125 275 155 C275 180 248 190 200 190 C152 190 125 180 125 155 Z" fill="#8D6E63"/>
+  <!-- Scores (cracks on bread) -->
+  <path d="M150 130 Q170 120 190 135" stroke="#5D4037" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M180 120 Q200 110 220 125" stroke="#5D4037" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M210 130 Q230 120 250 135" stroke="#5D4037" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- Text -->
+  <text x="200" y="270" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="14" font-weight="600" fill="#5D4037">Signature Sourdough</text>
+</svg>
