@@ -330,8 +330,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             try {
-                $insertStmt = $conn->prepare("INSERT INTO items (vendor_id, name, description, price, image_path, availability, weight_qty, product_type, shelf_life, grade, price_unit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $insertStmt->execute([$vendor_id, $name, $description, $price, $image_path, $availability, $weight_qty, $product_type, $shelf_life, $grade, $price_unit]);
+                // Generate a unique 8-digit product ID
+                $productId = 0;
+                do {
+                    $productId = rand(10000000, 99999999);
+                    $checkItemId = $conn->prepare("SELECT id FROM items WHERE id = ?");
+                    $checkItemId->execute([$productId]);
+                } while ($checkItemId->fetch());
+
+                $insertStmt = $conn->prepare("INSERT INTO items (id, vendor_id, name, description, price, image_path, availability, weight_qty, product_type, shelf_life, grade, price_unit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $insertStmt->execute([$productId, $vendor_id, $name, $description, $price, $image_path, $availability, $weight_qty, $product_type, $shelf_life, $grade, $price_unit]);
                 $notification = ['type' => 'success', 'message' => 'Product listing created successfully!'];
             } catch (PDOException $e) {
                 $notification = ['type' => 'error', 'message' => 'Failed to add item: ' . $e->getMessage()];
